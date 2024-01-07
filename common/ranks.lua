@@ -23,5 +23,5 @@ Config.Ranks = {}
 function getRankXP(rank) return (27.6412 * rank)^2 + (20261.5 * rank) - 274830 end
 
 function Config:InitRanks()
-    for i=1,999 do Config.Ranks[i] = { XP = getRankXP(i) } end
+    for i=1,999 do Config.Ranks[i] = { XP = math.floor(getRankXP(i)) } end
 end
