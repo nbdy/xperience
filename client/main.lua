@@ -7,10 +7,10 @@ elseif Config.UseQBCore then
     event = 'QBCore:Client:OnPlayerLoaded'
 end
 
-
 RegisterKeyMapping('+xperience', 'Show Rank Bar', 'keyboard', Config.UIKey)
 
 function Xperience:Init(data)
+    Config:InitRanks()
     self.CurrentXP      = tonumber(data.xp)
     self.CurrentRank    = tonumber(data.rank)
 

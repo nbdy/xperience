@@ -6,6 +6,8 @@ MySQL.ready(function()
 end)
 
 function Xperience:Init()
+    Config:InitRanks()
+
     while not MySQLReady do Wait(5) end
 
     self.ready = false
@@ -59,10 +61,10 @@ function Xperience:Load(src)
             local license = self:GetPlayer(src)
             
             if Config.UseESX then
-                local statement = 'SELECT * FROM users WHERE license = @license'
+                local statement = 'SELECT xp, rank FROM users WHERE license = @license'
 
                 if Config.ESXIdentifierColumn == 'identifier' then
-                    statement = 'SELECT * FROM users WHERE identifier = @license'
+                    statement = 'SELECT xp, rank FROM users WHERE identifier = @license'
                 end
                 
                 MySQL.Async.fetchAll(statement, { ['@license'] = license }, function(res)
@@ -79,7 +81,7 @@ function Xperience:Load(src)
                     end
                 end)
             else
-                MySQL.Async.fetchAll('SELECT * FROM user_experience WHERE identifier = @license', { ['@license'] = license }, function(res)
+                MySQL.Async.fetchAll('SELECT xp, rank FROM user_experience WHERE identifier = @license', { ['@license'] = license }, function(res)
                     if res[1] then
                         result = {}
                         result.xp = tonumber(res[1].xp)
